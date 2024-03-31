@@ -1,6 +1,7 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import Map from "../Map";
 import { TableFormData } from "@/types";
+import SearchLocation from "../SearchLocation";
 
 // const Map = dynamic(() => import('../Map'), { ssr: false });
 
@@ -19,15 +20,20 @@ const Popup: React.FC<PopupProps> = ({
   mode,
   editMarkerData,
 }) => {
-
+    const [searchPositions, setSearchPositions] = useState<{
+        lat: number;
+        lng: number;
+      } | null>(null);
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50">
       <div className="w-full max-w-screen-md p-10 bg-white rounded-lg shadow-lg">
-         <Map
+        {mode !== "view" && <SearchLocation setSearchPositions={setSearchPositions} searchPositions={searchPositions}/>}
+        <Map
           setFormData={setFormData}
           formData={formData}
           mode={mode}
           editMarkerData={editMarkerData}
+          searchPositions={searchPositions}
         />
         <div className="flex justify-center mt-4">
           <button

@@ -53,9 +53,6 @@ const Home = () => {
     []
   );
 
-  useEffect(() => {
-    console.log(formData, "Form Data");
-  }, [formData]);
 
   const handleDelete = (id: string) => {
     setFormData((prevFormData) =>

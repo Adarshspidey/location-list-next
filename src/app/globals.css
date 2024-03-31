@@ -37,3 +37,7 @@ body {
   height: 400px;
 }
 
+.index-value {
+  z-index: 1001;
+  min-width: 270px;
+}

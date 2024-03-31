@@ -21,6 +21,7 @@ interface MapProps {
   mode: "add" | "edit" | "view" | "";
   formData: TableFormData[]; // Assuming any[] for now
   editMarkerData?: TableFormData; // Optional editMarkerData
+  searchPositions: { lat: number; lng: number } | null;
 }
 
 let center = {
@@ -33,6 +34,7 @@ const Map: React.FC<MapProps> = ({
   mode,
   formData,
   editMarkerData,
+  searchPositions,
 }) => {
   const [positions, setPositions] = useState<{
     lat: number;
@@ -46,6 +48,12 @@ const Map: React.FC<MapProps> = ({
       setIsInitialCall(true);
     }
   }, [editMarkerData, mode]);
+
+  useEffect(() => {
+    if(searchPositions !== null ){
+        setPositions(searchPositions);
+    }
+  }, [searchPositions]);
 
   const customIcon = new Icon({
     iconUrl: MarkerIcon.src,
@@ -62,6 +70,10 @@ const Map: React.FC<MapProps> = ({
     if (mode === "edit" && isInitialCall) {
       map.flyTo(editMarkerData!.positions); // Use non-null assertion here
       setIsInitialCall(false);
+    }
+
+    if(searchPositions !== null){
+        map.flyTo(searchPositions)
     }
 
     return positions === null ? null : (
@@ -87,11 +99,12 @@ const Map: React.FC<MapProps> = ({
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {(mode === "add" || mode === "edit") && <MapClick />}
+        {searchPositions !== null && <MapClick />}
         {mode === "view" && (
           <>
             {formData.map((mark, i) => (
               <Marker key={i} position={mark.positions} icon={customIcon}>
-                <Popup >
+                <Popup>
                   <Form
                     formData={formData}
                     setFormData={setFormData}
