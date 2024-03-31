@@ -31,7 +31,7 @@ const Popup: React.FC<PopupProps> = ({
         />
         <div className="flex justify-center mt-4">
           <button
-            className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded focus:ring-4 focus:ring-gray-300"
+            className="bg-red-500 hover:bg-red-700 text-white font-bold px-4 py-2 rounded focus:ring-4 focus:ring-red-700"
             onClick={() => setIsOpen(false)}
           >
             Close

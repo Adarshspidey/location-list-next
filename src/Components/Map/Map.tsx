@@ -81,7 +81,6 @@ const Map: React.FC<MapProps> = ({
 
   return (
     <div className="w-full h-full">
-      Hi
       <MapContainer center={center} zoom={13}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -92,7 +91,7 @@ const Map: React.FC<MapProps> = ({
           <>
             {formData.map((mark, i) => (
               <Marker key={i} position={mark.positions} icon={customIcon}>
-                <Popup>
+                <Popup >
                   <Form
                     formData={formData}
                     setFormData={setFormData}

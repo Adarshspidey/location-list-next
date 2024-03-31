@@ -1,7 +1,6 @@
 import { TableFormData } from "@/types";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-
 interface FormProps {
   setFormData: Dispatch<SetStateAction<TableFormData[]>>;
   formData: TableFormData[];
@@ -17,7 +16,10 @@ const Form: React.FC<FormProps> = ({
   mode,
   mark,
 }) => {
-  const [data, setData] = useState<TableFormData>({ nickName: "", address: "" });
+  const [data, setData] = useState<TableFormData>({
+    nickName: "",
+    address: "",
+  });
   const [nickNameError, setNickNameError] = useState("");
 
   useEffect(() => {
@@ -71,8 +73,12 @@ const Form: React.FC<FormProps> = ({
   };
 
   return (
-    <div className="flex flex-col space-y-4 items-center">
-      <form action="" onSubmit={handleSubmit}>
+    <div className="w-150 h-100">
+      <form
+        action=""
+        onSubmit={handleSubmit}
+        className="grid place-items-center gap-x-4 gap-y-4"
+      >
         {mode === "view" ? (
           <div>{data.nickName}</div>
         ) : (
@@ -83,10 +89,10 @@ const Form: React.FC<FormProps> = ({
               name="nickName"
               value={data.nickName}
               onChange={handleChange}
-              className="border border-gray-300 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border"
             />
             {nickNameError && (
-              <p className="text-red-500 text-xs absolute top-0 right-0 mt-1">
+              <p className="absolute top-0 left-0 mt-2 text-red-500 text-xs">
                 {nickNameError}
               </p>
             )}
@@ -101,13 +107,13 @@ const Form: React.FC<FormProps> = ({
             name="address"
             value={data.address}
             onChange={handleChange}
-            className="border border-gray-300 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="border"
           />
         )}
         {mode !== "view" && (
           <button
             type="submit"
-            className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
+            className="bg-blue-500 text-white font-bold py-1 px-2 rounded hover:bg-blue-700"
           >
             Save
           </button>
